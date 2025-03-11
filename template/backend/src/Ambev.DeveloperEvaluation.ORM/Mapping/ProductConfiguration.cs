@@ -37,12 +37,12 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
        
         builder.Property<string>("RatingJson")
             .HasColumnName("RatingJson")
-            .HasColumnType("nvarchar(max)");
+            .HasColumnType("varchar(300)");
 
        
         builder.Property(p => p.CreatedAt)
             .IsRequired()
-            .HasDefaultValueSql("GETDATE()");
+            .HasDefaultValueSql("now()");
 
        
         builder.Property(p => p.UpdatedAt)
