@@ -22,6 +22,6 @@ public class CartConfiguration : IEntityTypeConfiguration<Cart>
             .HasForeignKey(c => c.UserId)
             .IsRequired();
 
-        builder.HasMany(e => e.Products);
+        builder.HasMany(e => e.Items);
     }
 }

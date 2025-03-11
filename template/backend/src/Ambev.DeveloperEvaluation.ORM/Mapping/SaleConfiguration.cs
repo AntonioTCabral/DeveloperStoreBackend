@@ -15,10 +15,9 @@ public class SaleConfiguration : IEntityTypeConfiguration<Sale>
         builder.HasKey(s => s.Id);
         builder.Property(s => s.Id).HasColumnType("uuid").HasDefaultValueSql("gen_random_uuid()");
 
-        
+
         builder.Property(s => s.SaleNumber)
-            .IsRequired()
-            .HasMaxLength(50);
+            .IsRequired();
 
         builder.Property(s => s.SaleDate)
             .IsRequired();
@@ -26,10 +25,6 @@ public class SaleConfiguration : IEntityTypeConfiguration<Sale>
         builder.Property(s => s.TotalAmount)
             .IsRequired()
             .HasColumnType("decimal(18,2)");
-
-        builder.Property(s => s.Branch)
-            .IsRequired()
-            .HasMaxLength(100);
 
         builder.Property(s => s.IsCancelled)
             .IsRequired();
@@ -44,5 +39,10 @@ public class SaleConfiguration : IEntityTypeConfiguration<Sale>
             .WithOne(si => si.Sale)
             .HasForeignKey(si => si.SaleId)
             .OnDelete(DeleteBehavior.Cascade);
+        
+        builder.HasOne(s => s.Branch)
+            .WithMany()
+            .HasForeignKey(s => s.BranchId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

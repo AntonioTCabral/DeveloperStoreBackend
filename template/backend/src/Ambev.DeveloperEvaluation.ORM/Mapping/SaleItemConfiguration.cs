@@ -33,9 +33,8 @@ public class SaleItemConfiguration : IEntityTypeConfiguration<SaleItem>
             .IsRequired()
             .HasColumnType("decimal(18,2)");
 
-
         builder.HasOne(si => si.Product)
-            .WithMany() // Caso Product não possua uma coleção de SaleItems
+            .WithMany()
             .HasForeignKey(si => si.ProductId)
             .OnDelete(DeleteBehavior.Restrict);
 

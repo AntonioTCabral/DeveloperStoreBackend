@@ -14,7 +14,7 @@ public class Product : BaseEntity
     public string Image { get; set; } = string.Empty;
     public string Category { get; set; } = string.Empty;
     private string RatingJson { get; set; } = string.Empty;
-    public DateTime CreatedAt { get; private set; } = DateTime.Now;
+    public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; private set; }
 
     [NotMapped]

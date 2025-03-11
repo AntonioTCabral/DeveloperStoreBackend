@@ -6,7 +6,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories.Base;
 
 public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
 {
-    private readonly DefaultContext _context;
+    protected readonly DefaultContext _context;
 
     public BaseRepository(DefaultContext context)
     {
@@ -43,5 +43,12 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         await _context.SaveChangesAsync(cancellationToken);
 
         return true;
+    }
+
+    public async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
+    {
+        var entities = await _context.Set<T>().ToListAsync(cancellationToken);
+        
+        return entities;
     }
 }

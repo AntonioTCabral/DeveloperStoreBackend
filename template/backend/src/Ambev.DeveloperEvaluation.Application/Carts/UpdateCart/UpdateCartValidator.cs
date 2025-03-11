@@ -1,10 +1,10 @@
 using FluentValidation;
 
-namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.CreateProduct;
+namespace Ambev.DeveloperEvaluation.Application.Carts.UpdateCart;
 
-public class CreateProductValidator : AbstractValidator<CreateProductRequest>
+public class UpdateCartValidator : AbstractValidator<UpdateCartCommand>
 {
-    public CreateProductValidator()
+    public UpdateCartValidator()
     {
         RuleFor(x => x.Title)
             .NotEmpty()
@@ -22,14 +22,12 @@ public class CreateProductValidator : AbstractValidator<CreateProductRequest>
         RuleFor(x => x.Image)
             .NotEmpty()
             .WithMessage("The image cannot be empty.")
-            .MaximumLength(250)
-            .WithMessage("The image cannot be longer than 250 characters.");
+            .MaximumLength(500);
 
         RuleFor(x => x.Category)
             .NotEmpty()
             .WithMessage("The category cannot be empty.")
-            .MaximumLength(100)
-            .WithMessage("The category cannot be longer than 100 characters.");
+            .MaximumLength(100);
 
         RuleFor(x => x.Rating).NotNull();
     }

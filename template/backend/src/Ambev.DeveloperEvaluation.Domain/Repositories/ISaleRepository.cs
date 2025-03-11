@@ -5,5 +5,5 @@ namespace Ambev.DeveloperEvaluation.Domain.Repositories;
 
 public interface ISaleRepository : IBaseRepository<Sale>
 {
-    
+   Task<int> GetLastSaleNumberAsync();
 }
