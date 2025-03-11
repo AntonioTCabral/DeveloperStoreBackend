@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Ambev.DeveloperEvaluation.Application.Carts.GetProduct;
+namespace Ambev.DeveloperEvaluation.Application.Carts.GetCart;
 
 public class GetProductValidator : AbstractValidator<GetProductCommand>
 {

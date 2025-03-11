@@ -4,7 +4,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities;
 
 public class Cart : BaseEntity
 {
-    public DateTime Date { get; set; }
+    public DateTime Date { get; set; } = DateTime.UtcNow;
     public Guid UserId { get; set; }
     public ICollection<CartItem> Items { get; set; }
 

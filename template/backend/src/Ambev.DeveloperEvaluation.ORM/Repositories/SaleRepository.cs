@@ -13,6 +13,19 @@ public class SaleRepository : BaseRepository<Sale>, ISaleRepository
 
    public async Task<int> GetLastSaleNumberAsync()
    {
-       return await _context.Sales.MaxAsync(s => s.SaleNumber);
+       return await _context.Sales.AnyAsync()
+           ? await _context.Sales.MaxAsync(s => s.SaleNumber)
+           : 0;
+   }
+
+   public async Task<Sale?> GetWithIncludeAsync(Guid id, CancellationToken cancellationToken = default)
+   {
+       return await _context.Sales
+           .Include(s => s.Customer)
+           .Include(s => s.Branch)
+           .Include(s => s.SaleItems)
+           .ThenInclude(si => si.Product)
+           .AsNoTracking()
+           .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
    }
 }

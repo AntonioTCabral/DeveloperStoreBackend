@@ -43,7 +43,7 @@ public class CartsController : BaseController
         return Created(string.Empty, new ApiResponseWithData<CreateCartResponse>
         {
             Success = true,
-            Message = "Product created successfully",
+            Message = "Cart created successfully",
             Data = _mapper.Map<CreateCartResponse>(response)
         });
     }

@@ -1,6 +1,6 @@
 using Ambev.DeveloperEvaluation.Domain.ValueObjects;
 
-namespace Ambev.DeveloperEvaluation.Application.Carts.GetProduct;
+namespace Ambev.DeveloperEvaluation.Application.Carts.GetCart;
 
 public class GetProductResult
 {

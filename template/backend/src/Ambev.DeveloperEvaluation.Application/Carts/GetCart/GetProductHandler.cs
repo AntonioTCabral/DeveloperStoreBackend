@@ -3,7 +3,7 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 
-namespace Ambev.DeveloperEvaluation.Application.Carts.GetProduct;
+namespace Ambev.DeveloperEvaluation.Application.Carts.GetCart;
 
 public class GetProductHandler : IRequestHandler<GetProductCommand, GetProductResult>
 {

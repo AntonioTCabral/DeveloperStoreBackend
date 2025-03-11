@@ -31,7 +31,7 @@ public class CreateSaleHandler : IRequestHandler<CreateSaleCommand, CreateSaleRe
         if (!validationResult.IsValid)
             throw new ValidationException(validationResult.Errors);
 
-        var cart = await _cartRepository.GetByIdAsync(command.CartId, cancellationToken);
+        var cart = await _cartRepository.GetWithItemsAsync(command.CartId, cancellationToken);
 
         if (cart == null)
             throw new KeyNotFoundException($"Cart with ID {command.CartId} not found");
