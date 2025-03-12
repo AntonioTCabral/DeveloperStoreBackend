@@ -3,6 +3,7 @@ using Ambev.DeveloperEvaluation.Common.Validation;
 using Ambev.DeveloperEvaluation.Domain.Common;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 using Ambev.DeveloperEvaluation.Domain.Validation;
+using Ambev.DeveloperEvaluation.Domain.ValueObjects;
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities;
 
@@ -59,6 +60,9 @@ public class User : BaseEntity, IUser
     /// Gets the date and time of the last update to the user's information.
     /// </summary>
     public DateTime? UpdatedAt { get; set; }
+    
+    public Name Name { get; set; }
+    public Address Address { get; set; }
 
     /// <summary>
     /// Gets the unique identifier of the user.
