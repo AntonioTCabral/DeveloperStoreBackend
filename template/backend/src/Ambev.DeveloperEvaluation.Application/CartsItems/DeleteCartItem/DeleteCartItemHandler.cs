@@ -1,9 +1,6 @@
-﻿using Ambev.DeveloperEvaluation.Application.CartsItems.GetCartItem;
-using Ambev.DeveloperEvaluation.Domain.Entities;
-using Ambev.DeveloperEvaluation.Domain.Repositories;
+﻿using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
 using MediatR;
-using System.ComponentModel.DataAnnotations;
 
 
 namespace Ambev.DeveloperEvaluation.Application.CartsItems.DeleteCartItem;

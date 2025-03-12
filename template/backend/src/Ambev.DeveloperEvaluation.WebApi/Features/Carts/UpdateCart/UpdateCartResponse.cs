@@ -1,5 +1,4 @@
 ﻿using Ambev.DeveloperEvaluation.WebApi.Features.CartItems.CreateCartItem;
-using Ambev.DeveloperEvaluation.WebApi.Features.CartItems.UpdateCartItem;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.UpdateCart;
 

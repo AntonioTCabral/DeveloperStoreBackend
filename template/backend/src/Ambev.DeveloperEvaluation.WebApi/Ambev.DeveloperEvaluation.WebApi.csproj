@@ -30,10 +30,7 @@
 
   <ItemGroup>
     <Folder Include="Features\Sale\CancelSale\" />
-    <Folder Include="Features\Users\GetUser\" />
-    <Folder Include="Features\Users\DeleteUser\" />
     <Folder Include="Features\Users\ListUsers\" />
-    <Folder Include="Features\Users\UpdateUser\" />
   </ItemGroup>
 
 </Project>

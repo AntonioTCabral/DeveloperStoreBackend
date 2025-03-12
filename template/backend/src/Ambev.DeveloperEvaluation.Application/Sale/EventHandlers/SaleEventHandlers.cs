@@ -1,5 +1,4 @@
 using Ambev.DeveloperEvaluation.Domain.Events;
-using Microsoft.Extensions.Logging;
 using Rebus.Handlers;
 
 namespace Ambev.DeveloperEvaluation.Application.Sale.EventHandlers;

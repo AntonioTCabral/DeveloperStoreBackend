@@ -1,5 +1,4 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.ValueObjects;
-using Ambev.DeveloperEvaluation.WebApi.Features.CartItems.UpdateCartItem;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sale.UpdateSale;
 

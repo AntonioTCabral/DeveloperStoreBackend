@@ -1,9 +1,6 @@
 using Ambev.DeveloperEvaluation.Application.Carts.GetCart;
-using Ambev.DeveloperEvaluation.Application.DTOs;
 using Ambev.DeveloperEvaluation.Application.Products.CreateProduct;
 using Ambev.DeveloperEvaluation.Application.Products.DeleteProduct;
-using Ambev.DeveloperEvaluation.Application.Products.GetAllProduct;
-using Ambev.DeveloperEvaluation.Application.Products.GetByCategory;
 using Ambev.DeveloperEvaluation.Application.Products.GetCategories;
 using Ambev.DeveloperEvaluation.Application.Products.UpdateProduct;
 using Ambev.DeveloperEvaluation.Domain.Entities;
@@ -11,7 +8,6 @@ using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.CreateProduct;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.DeleteProduct;
-using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetAllPorduct;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetByCategory;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetCategories;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct;

@@ -1,10 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Application.CartsItems.GetCartItem;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.CartsItems.DeleteCartItem;
 

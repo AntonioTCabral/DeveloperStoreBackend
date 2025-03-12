@@ -1,7 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Application.Carts.UpdateCart;
-using Ambev.DeveloperEvaluation.Application.DTOs;
-using Ambev.DeveloperEvaluation.Application.Sale.UpdateSale;
-using Ambev.DeveloperEvaluation.WebApi.Features.CartItems.UpdateCartItem;
+﻿using Ambev.DeveloperEvaluation.Application.Sale.UpdateSale;
 using AutoMapper;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sale.UpdateSale;

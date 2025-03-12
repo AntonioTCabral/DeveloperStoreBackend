@@ -1,6 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Enums;
-
-namespace Ambev.DeveloperEvaluation.WebApi.Features.CartItems.GetCartItem;
+﻿namespace Ambev.DeveloperEvaluation.WebApi.Features.CartItems.GetCartItem;
 
 /// <summary>
 /// API response model for GetCartItem operation.

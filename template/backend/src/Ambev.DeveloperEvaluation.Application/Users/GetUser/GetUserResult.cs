@@ -1,3 +1,4 @@
+using Ambev.DeveloperEvaluation.Application.Users.DTOS;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 
 namespace Ambev.DeveloperEvaluation.Application.Users.GetUser;
@@ -15,7 +16,7 @@ public class GetUserResult
     /// <summary>
     /// The user's full name
     /// </summary>
-    public string Name { get; set; } = string.Empty;
+    public string Username { get; set; } = string.Empty;
 
     /// <summary>
     /// The user's email address
@@ -25,15 +26,44 @@ public class GetUserResult
     /// <summary>
     /// The user's phone number
     /// </summary>
-    public string Phone { get; set; } = string.Empty;   
+    public string Phone { get; set; } = string.Empty;
+
 
     /// <summary>
-    /// The user's role in the system
+    /// Gets or sets the status of the user.
     /// </summary>
-    public UserRole Role { get; set; }
+    public string Status
+    {
+        get => UserStatus.ToString();
+        set => UserStatus = Enum.Parse<UserStatus>(value, true);
+    }
 
     /// <summary>
-    /// The current status of the user
+    /// Gets or sets the status of the user.
     /// </summary>
-    public UserStatus Status { get; set; }
+    public UserStatus UserStatus { get; set; }
+
+    /// <summary>
+    /// Gets or sets the role as a string.
+    /// </summary>
+    public string Role
+    {
+        get => UserRole.ToString();
+        set => UserRole = Enum.Parse<UserRole>(value, true);
+    }
+
+    /// <summary>
+    /// Gets or sets the role of the user.
+    /// </summary>
+    private UserRole UserRole { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name details of the user.
+    /// </summary>
+    public NameDto Name { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets the address details of the user.
+    /// </summary>
+    public AddressDto Address { get; set; } = new();
 }

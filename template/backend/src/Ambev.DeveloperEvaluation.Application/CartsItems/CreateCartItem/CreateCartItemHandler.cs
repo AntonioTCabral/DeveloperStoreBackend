@@ -2,7 +2,6 @@
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
 using MediatR;
-using System.ComponentModel.DataAnnotations;
 
 
 namespace Ambev.DeveloperEvaluation.Application.CartsItems.CreateCartItem;
