@@ -1,13 +1,14 @@
 using Ambev.DeveloperEvaluation.Application.Carts.CreateCart;
 using Ambev.DeveloperEvaluation.Application.Carts.DeleteCart;
-using Ambev.DeveloperEvaluation.Application.Carts.GetAllCart;
-using Ambev.DeveloperEvaluation.Application.DTOs;
+using Ambev.DeveloperEvaluation.Application.Carts.GetCart;
+using Ambev.DeveloperEvaluation.Application.Carts.UpdateCart;
 using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Carts.CreateCart;
 using Ambev.DeveloperEvaluation.WebApi.Features.Carts.DeleteCart;
-using Ambev.DeveloperEvaluation.WebApi.Features.Carts.GetAllCart;
+using Ambev.DeveloperEvaluation.WebApi.Features.Carts.GetCart;
+using Ambev.DeveloperEvaluation.WebApi.Features.Carts.UpdateCart;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -30,26 +31,43 @@ public class CartsController : BaseController
         _mapper = mapper;
         _cartRepository = cartRepository;
     }
-
-    [HttpGet]
-    [ProducesResponseType(typeof(ApiResponseWithData<PaginatedList<CartDTO>>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetAllCarts(
-        CancellationToken cancellationToken,
-        [FromQuery] int page = 1,
-        [FromQuery] int size = 10,
-        [FromQuery] string order = "desc")
+    
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetCartById(Guid id)
     {
-        var carts = await _cartRepository.GetAllAsync(order, cancellationToken);
+        var validator = new GetCartRequestValidator();
+        var validationResult = await validator.ValidateAsync(new GetCartRequest(id));
         
-        var result = await PaginatedList<Cart>.CreateAsync(carts, page, size);
-
-        return Ok(new ApiResponseWithData<PaginatedList<Cart>>
+        if (!validationResult.IsValid)
+            return BadRequest(validationResult.Errors);
+        
+        var command = _mapper.Map<GetCartCommand>(id);
+        var response = await _mediator.Send(command);
+        
+        var result = _mapper.Map<GetCartResponse>(response);
+        
+        return Ok(new ApiResponseWithData<GetCartResponse>
         {
             Success = true,
-            Message = "Carts retrieved successfully",
+            Message = "Cart retrieved successfully",
             Data = result
         });
+    }
+    
+
+    [HttpGet]
+    [ProducesResponseType(typeof(PaginatedResponse<PaginatedList<Cart>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetAllCarts(
+        [FromQuery] int? page,
+        [FromQuery] int? size,
+        [FromQuery] string? order)
+    {
+        var carts = await _cartRepository.GetAllWithIncludeAsync(order);
+        
+        var result = await PaginatedList<Cart>.CreateAsync(carts, page ?? 1, size ?? 10);
+
+        return OkPaginated(result);
     }
     
     [HttpPost]
@@ -72,16 +90,29 @@ public class CartsController : BaseController
         });
     }
     
-    [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetCartById(Guid id)
-    {
-        return Ok();
-    }
     
-    [HttpPut("{id:guid}")]
-    public async Task<IActionResult> UpdateCart()
+    
+    [HttpPut("{id}")]
+    [ProducesResponseType(typeof(ApiResponseWithData<UpdateCartResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateCart(Guid id, [FromBody] UpdateCartRequest request, CancellationToken cancellationToken)
     {
-        return Ok();
+        var validator = new UpdateCartRequestValidator();
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validationResult.IsValid)
+            return BadRequest(validationResult.Errors);
+        request.Id = id;
+        var command = _mapper.Map<UpdateCartCommand>(request);
+        var response = await _mediator.Send(command, cancellationToken);
+
+        return Ok(new ApiResponseWithData<UpdateCartResponse>
+        {
+            Success = true,
+            Message = "Cart updated successfully",
+            Data = _mapper.Map<UpdateCartResponse>(response)
+        });
     }
     
     [HttpDelete("{id}")]

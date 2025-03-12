@@ -6,6 +6,8 @@ using Ambev.DeveloperEvaluation.Application.Products.GetAllProduct;
 using Ambev.DeveloperEvaluation.Application.Products.GetByCategory;
 using Ambev.DeveloperEvaluation.Application.Products.GetCategories;
 using Ambev.DeveloperEvaluation.Application.Products.UpdateProduct;
+using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.CreateProduct;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.DeleteProduct;
@@ -30,11 +32,13 @@ public class ProductsController : BaseController
 {
     private readonly IMediator _mediator;
     private readonly IMapper _mapper;
+    private readonly IProductRepository _productRepository;
 
-    public ProductsController(IMediator mediator, IMapper mapper)
+    public ProductsController(IMediator mediator, IMapper mapper, IProductRepository productRepository)
     {
         _mediator = mediator;
         _mapper = mapper;
+        _productRepository = productRepository;
     }
     
     [HttpGet("{id:guid}")]
@@ -62,29 +66,23 @@ public class ProductsController : BaseController
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(ApiResponseWithData<PaginatedList<ProductDTO>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PaginatedResponse<PaginatedList<Product>>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetAllProducts(
-        CancellationToken cancellationToken,
-        [FromQuery] int page = 1,
-        [FromQuery] int size = 10,
-        [FromQuery] string order = "desc")
+        [FromQuery] int? page,
+        [FromQuery] int? size,
+        [FromQuery] string order )
     {
-        var query = new GetAllProductsCommand(order);
-        var response = await _mediator.Send(query, cancellationToken);
-        
-        var result = await PaginatedList<ProductDTO>.CreateAsync(response.Data.AsQueryable(), page, size);
 
-        return Ok(new ApiResponseWithData<PaginatedList<ProductDTO>>
-        {
-            Success = true,
-            Message = "Products retrieved successfully",
-            Data = result
-        });
+        var products = await _productRepository.GetAllAsync(order);
+        
+        var result = await PaginatedList<Product>.CreateAsync(products, page ?? 1, size ?? 10);
+
+        return OkPaginated(result);
     }
     
     [HttpGet("category/{category}")]
-    [ProducesResponseType(typeof(ApiResponseWithData<PaginatedList<ProductDTO>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PaginatedResponse<PaginatedList<Product>>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetByCategory(
         [FromRoute] string category,
@@ -97,26 +95,20 @@ public class ProductsController : BaseController
         var request = new GetProductsByCategoryRequest
         {
             Category = category,
-            Order = order ?? "desc",
+            Order = order
         };
 
         var validator = new GetProductsByCategoryRequestValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
-
+        
         if (!validationResult.IsValid)
             return BadRequest(validationResult.Errors);
 
-        var command = _mapper.Map<GetByCategoryCommand>(request);
-        var response = await _mediator.Send(command, cancellationToken);
+        var products = await _productRepository.GetByCategoryAsync(category, order, cancellationToken);
         
-        var result = await PaginatedList<ProductDTO>.CreateAsync(response.Data.AsQueryable(), page ?? 1, size ?? 10);
+        var result = await PaginatedList<Product>.CreateAsync(products, page ?? 1, size ?? 10);
 
-        return Ok(new ApiResponseWithData<PaginatedList<ProductDTO>>
-        {
-            Success = true,
-            Message = "Products retrieved successfully",
-            Data = result
-        });
+        return OkPaginated(result);
     }
     
     [HttpGet("categories")]

@@ -18,7 +18,7 @@ public class Product : BaseEntity
     public DateTime? UpdatedAt { get; private set; }
 
     [NotMapped]
-    public RatingValueObject RatingValueObject
+    public RatingValueObject Rating
     {
         get => JsonSerializer.Deserialize<RatingValueObject>(RatingJson) ?? new RatingValueObject();
         

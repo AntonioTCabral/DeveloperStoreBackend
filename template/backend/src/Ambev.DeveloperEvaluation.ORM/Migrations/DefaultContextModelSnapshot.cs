@@ -89,7 +89,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("CartId")
+                    b.Property<Guid>("CartId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("ProductId")
@@ -323,15 +323,21 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
 
             modelBuilder.Entity("Ambev.DeveloperEvaluation.Domain.Entities.CartItem", b =>
                 {
-                    b.HasOne("Ambev.DeveloperEvaluation.Domain.Entities.Cart", null)
+                    b.HasOne("Ambev.DeveloperEvaluation.Domain.Entities.Cart", "Cart")
                         .WithMany("Items")
-                        .HasForeignKey("CartId");
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Ambev.DeveloperEvaluation.Domain.Entities.Product", null)
+                    b.HasOne("Ambev.DeveloperEvaluation.Domain.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Ambev.DeveloperEvaluation.Domain.Entities.Sale", b =>

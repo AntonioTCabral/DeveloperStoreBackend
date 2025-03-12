@@ -1,21 +1,19 @@
 ﻿using FluentValidation;
 
-namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.DeleteCart
-{
+namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.DeleteCart;
 
+/// <summary>
+/// Validator for DeleteCartRequest
+/// </summary>
+public class DeleteCartRequestValidator : AbstractValidator<DeleteCartRequest>
+{
     /// <summary>
-    /// Validator for DeleteCartRequest
+    /// Initializes validation rules for DeleteCartRequest
     /// </summary>
-    public class DeleteCartRequestValidator : AbstractValidator<DeleteCartRequest>
+    public DeleteCartRequestValidator()
     {
-        /// <summary>
-        /// Initializes validation rules for DeleteCartRequest
-        /// </summary>
-        public DeleteCartRequestValidator()
-        {
-            RuleFor(x => x.Id)
-                .NotEmpty()
-                .WithMessage("Cart ID is required");
-        }
+        RuleFor(x => x.Id)
+            .NotEmpty()
+            .WithMessage("Cart ID is required");
     }
 }

@@ -12,16 +12,15 @@ public class CartItemConfiguration : IEntityTypeConfiguration<CartItem>
 
         builder.HasKey(ci => ci.Id);
 
-        builder.Property(ci => ci.ProductId)
-            .IsRequired();
-
         builder.Property(ci => ci.Quantity)
             .IsRequired()
             .HasDefaultValue(1);
         
-        builder.HasOne<Product>()
+        builder.HasOne(ci => ci.Product)
             .WithMany()
             .HasForeignKey(ci => ci.ProductId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne<Cart>().WithMany(c => c.Items).HasForeignKey(ci => ci.CartId);
     }
 }

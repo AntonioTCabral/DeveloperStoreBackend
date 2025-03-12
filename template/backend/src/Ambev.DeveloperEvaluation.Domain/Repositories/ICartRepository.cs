@@ -6,4 +6,5 @@ namespace Ambev.DeveloperEvaluation.Domain.Repositories;
 public interface ICartRepository : IBaseRepository<Cart>
 {
     Task<Cart?> GetWithItemsAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<IQueryable<Cart>> GetAllWithIncludeAsync(string? orderBy);
 }

@@ -24,11 +24,11 @@ public class GetCartHandler : IRequestHandler<GetCartCommand, GetCartResult>
         if (!validationResult.IsValid)
             throw new ValidationException(validationResult.Errors);
         
-        var product = await _cartRepository.GetByIdAsync(request.Id, cancellationToken);
+        var cart = await _cartRepository.GetWithItemsAsync(request.Id, cancellationToken);
         
-        if (product == null)
+        if (cart == null)
             throw new KeyNotFoundException($"Cart with ID {request.Id} not found");
         
-        return _mapper.Map<GetCartResult>(product);
+        return _mapper.Map<GetCartResult>(cart);
     }
 }

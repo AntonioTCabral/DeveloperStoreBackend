@@ -46,7 +46,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         return true;
     }
 
-    public Task<IQueryable<T>> GetAllAsync(string orderBy, CancellationToken cancellationToken = default)
+    public Task<IQueryable<T>> GetAllAsync(string orderBy)
     {
         var entities = _context.Set<T>().AsNoTracking().AsQueryable();
         

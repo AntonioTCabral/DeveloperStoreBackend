@@ -23,6 +23,7 @@ public class InfrastructureModuleInitializer : IModuleInitializer
         builder.Services.AddScoped<ISaleRepository, SaleRepository>();
         builder.Services.AddScoped<ISaleItemRepository, SaleItemRepository>();
         builder.Services.AddScoped<ICartRepository, CartRepository>();
+        builder.Services.AddScoped<ICartItemRepository, CartItemRepository>();
        
     }
 }

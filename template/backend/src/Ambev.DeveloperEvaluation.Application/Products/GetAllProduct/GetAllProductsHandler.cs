@@ -18,7 +18,7 @@ public class GetAllProductsHandler : IRequestHandler<GetAllProductsCommand, GetA
 
     public async Task<GetAllProductResult> Handle(GetAllProductsCommand request, CancellationToken cancellationToken)
     {
-        var products = await _productRepository.GetAllAsync(request.Order, cancellationToken);
+        var products = await _productRepository.GetAllAsync(request.Order);
 
         var result = new GetAllProductResult()
         {

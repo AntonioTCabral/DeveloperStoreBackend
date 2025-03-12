@@ -12,7 +12,7 @@ public class ProductRepository : BaseRepository<Product>, IProductRepository
     {
     }
 
-    public Task<IQueryable<Product>> GetByCategoryAsync(string category, string orderBy, CancellationToken cancellationToken = default)
+    public Task<IQueryable<Product>> GetByCategoryAsync(string category, string? orderBy, CancellationToken cancellationToken = default)
     {
         var query = _context.Products.Where(p => p.Category == category).AsQueryable();
         

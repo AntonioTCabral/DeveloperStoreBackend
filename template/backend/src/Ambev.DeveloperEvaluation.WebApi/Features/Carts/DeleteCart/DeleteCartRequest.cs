@@ -1,14 +1,12 @@
-﻿namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.DeleteCart
-{
+﻿namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.DeleteCart;
 
+/// <summary>
+/// Request model for deleting a cart
+/// </summary>
+public class DeleteCartRequest
+{
     /// <summary>
-    /// Request model for deleting a cart
+    /// The unique identifier of the cart to delete
     /// </summary>
-    public class DeleteCartRequest
-    {
-        /// <summary>
-        /// The unique identifier of the cart to delete
-        /// </summary>
-        public Guid Id { get; set; }
-    }
+    public Guid Id { get; set; }
 }
