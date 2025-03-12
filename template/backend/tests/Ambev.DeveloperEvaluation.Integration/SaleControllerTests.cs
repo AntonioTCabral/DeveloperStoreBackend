@@ -86,7 +86,7 @@ public class SaleControllerTests : IClassFixture<ApplicationFactory>
     
         var saleId = createdApiResponse!.Data.Id;
 
-        // 2) Agora chamar GET /api/sales/{id}
+       
         var getResponse = await _client.GetAsync($"/api/sales/{saleId}");
         getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
