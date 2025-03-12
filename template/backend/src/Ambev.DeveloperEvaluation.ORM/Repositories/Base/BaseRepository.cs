@@ -1,6 +1,7 @@
 using Ambev.DeveloperEvaluation.Domain.Common;
 using Ambev.DeveloperEvaluation.Domain.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
 
 namespace Ambev.DeveloperEvaluation.ORM.Repositories.Base;
 
@@ -45,10 +46,13 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         return true;
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
+    public Task<IQueryable<T>> GetAllAsync(string orderBy, CancellationToken cancellationToken = default)
     {
-        var entities = await _context.Set<T>().ToListAsync(cancellationToken);
+        var entities = _context.Set<T>().AsNoTracking().AsQueryable();
         
-        return entities;
+        if (!string.IsNullOrEmpty(orderBy))
+            entities = entities.OrderBy(orderBy);
+        
+        return Task.FromResult(entities);
     }
 }

@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.Application.Carts.GetCart;
 
-public class GetProductValidator : AbstractValidator<GetProductCommand>
+public class GetCartValidator : AbstractValidator<GetCartCommand>
 {
-    public GetProductValidator()
+    public GetCartValidator()
     {
         RuleFor(x => x.Id)
             .NotEmpty()

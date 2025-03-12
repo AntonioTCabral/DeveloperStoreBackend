@@ -31,6 +31,6 @@ public class CreateProductValidator : AbstractValidator<CreateProductRequest>
             .MaximumLength(100)
             .WithMessage("The category cannot be longer than 100 characters.");
 
-        RuleFor(x => x.Rating).NotNull();
+        RuleFor(x => x.RatingValueObject).NotNull();
     }
 }

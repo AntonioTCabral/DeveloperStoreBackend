@@ -10,5 +10,5 @@ public class BaseResponse
     public decimal Price { get; set; }
     public string Image { get; set; } 
     public string Category { get; set; } 
-    public Rating Rating { get; set; }
+    public RatingValueObject RatingValueObject { get; set; }
 }

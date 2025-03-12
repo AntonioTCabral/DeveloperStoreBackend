@@ -29,6 +29,6 @@ public class CreateProductValidator : AbstractValidator<CreateProductCommand>
             .WithMessage("The category cannot be empty.")
             .MaximumLength(100);
 
-        RuleFor(x => x.Rating).NotNull();
+        RuleFor(x => x.RatingValueObject).NotNull();
     }
 }
