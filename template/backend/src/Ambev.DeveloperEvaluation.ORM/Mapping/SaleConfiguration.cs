@@ -28,7 +28,12 @@ public class SaleConfiguration : IEntityTypeConfiguration<Sale>
 
         builder.Property(s => s.IsCancelled)
             .IsRequired();
-
+        
+        builder.Property(p => p.UpdateAt)
+            .IsRequired(false);
+        
+        builder.Property(p => p.CanceledAt)
+            .IsRequired(false);
         
         builder.HasOne(s => s.Customer)
             .WithMany(c => c.Sales) 

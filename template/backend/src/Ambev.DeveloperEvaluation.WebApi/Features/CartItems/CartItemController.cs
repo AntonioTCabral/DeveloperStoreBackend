@@ -101,18 +101,16 @@ public class CartItemsController : BaseController
     /// <param name="request">The request containing optional filters</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A list of cart items</returns>
-    [HttpGet]
+    [HttpGet("from-cart/{cartId}")]
     [ProducesResponseType(typeof(PaginatedResponse<PaginatedList<CartItem>>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetAllCartItems(
         [FromQuery] string? order,
         [FromQuery] int? page,
-        [FromQuery] int? size,
-        CancellationToken cancellationToken
-    )
+        [FromQuery] int? size, Guid cartId)
     {
 
-        var cartItems = await _cartItemRepository.GetAllAsync(order);
+        var cartItems = await _cartItemRepository.GetAllByCartIdAsync(order, cartId);
             
         var result = await PaginatedList<CartItem>.CreateAsync(cartItems, page ?? 1, size ?? 10);
 

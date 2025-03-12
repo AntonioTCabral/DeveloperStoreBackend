@@ -163,7 +163,7 @@ public class ProductsController : BaseController
         
         var response = await _mediator.Send(command, cancellationToken);
 
-        return Created(string.Empty, new ApiResponseWithData<UpdateProductResponse>
+        return Ok(new ApiResponseWithData<UpdateProductResponse>
         {
             Success = true,
             Message = "Product updated successfully",
