@@ -62,12 +62,11 @@ public class CreateProductHandlerTests
             Id = product.Id
         };
 
-        // Configura mocks:
-        // 1) Quando o AutoMapper mapear o command para Product, retorna "product"
+       
         _mapper.Map<Product>(command).Returns(product);
-        // 2) Quando o repositório criar o produto, retorna "product"
+        
         _productRepository.CreateAsync(product, Arg.Any<CancellationToken>()).Returns(product);
-        // 3) Quando o AutoMapper mapear o Product criado para CreateProductResult, retorna "result"
+       
         _mapper.Map<CreateProductResult>(product).Returns(result);
 
         // Act
